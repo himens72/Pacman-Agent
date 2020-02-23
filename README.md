@@ -82,7 +82,7 @@ Important note: Make sure to use the Stack, Queue and PriorityQueue data structu
 
 Hint: Each algorithm is very similar. Algorithms for DFS, BFS, UCS, and A* differ only in the details of how the fringe is managed. So, concentrate on getting DFS right and the rest should be relatively straightforward. Indeed, one possible implementation requires only a single generic search method which is configured with an algorithm-specific queuing strategy. (Your implementation need not be of this form to receive full credit).
 
-Implement the depth-first search (DFS) algorithm in the depthFirstSearch function in search.py. To make your algorithm complete, write the graph search version of DFS, which avoids expanding any already visited states.
+**Implement the depth-first search (DFS) algorithm in the depthFirstSearch function in search.py. To make your algorithm complete, write the graph search version of DFS, which avoids expanding any already visited states.**
 
 Your code should quickly find a solution for:
 
@@ -94,7 +94,7 @@ The Pacman board will show an overlay of the states explored, and the order in w
 Hint: If you use a Stack as your data structure, the solution found by your DFS algorithm for mediumMaze should have a length of 130 (provided you push successors onto the fringe in the order provided by getSuccessors; you might get 246 if you push them in the reverse order). Is this a least cost solution? If not, think about what depth-first search is doing wrong.
 
 ### Question 2 (3 points): Breadth First Search
-Implement the breadth-first search (BFS) algorithm in the breadthFirstSearch function in search.py. Again, write a graph search algorithm that avoids expanding any already visited states. Test your code the same way you did for depth-first search.
+**Implement the breadth-first search (BFS) algorithm in the breadthFirstSearch function in search.py. Again, write a graph search algorithm that avoids expanding any already visited states. Test your code the same way you did for depth-first search.**
 
     python pacman.py -l mediumMaze -p SearchAgent -a fn=bfs
     python pacman.py -l bigMaze -p SearchAgent -a fn=bfs -z .5
@@ -110,7 +110,8 @@ While BFS will find a fewest-actions path to the goal, we might want to find pat
 
 By changing the cost function, we can encourage Pacman to find different paths. For example, we can charge more for dangerous steps in ghost-ridden areas or less for steps in food-rich areas, and a rational Pacman agent should adjust its behavior in response.
 
-Implement the uniform-cost graph search algorithm in the uniformCostSearch function in search.py. We encourage you to look through util.py for some data structures that may be useful in your implementation. You should now observe successful behavior in all three of the following layouts, where the agents below are all UCS agents that differ only in the cost function they use (the agents and cost functions are written for you):
+**Implement the uniform-cost graph search algorithm in the uniformCostSearch function in search.py.**
+We encourage you to look through util.py for some data structures that may be useful in your implementation. You should now observe successful behavior in all three of the following layouts, where the agents below are all UCS agents that differ only in the cost function they use (the agents and cost functions are written for you):
 
     python pacman.py -l mediumMaze -p SearchAgent -a fn=ucs
     python pacman.py -l mediumDottedMaze -p StayEastSearchAgent
@@ -132,7 +133,7 @@ In corner mazes, there are four dots, one in each corner. Our new search problem
 
 Note: Make sure to complete Question 2 before working on Question 5, because Question 5 builds upon your answer for Question 2.
 
-Implement the CornersProblem search problem in searchAgents.py. You will need to choose a state representation that encodes all the information necessary to detect whether all four corners have been reached. Now, your search agent should solve:
+**Implement the CornersProblem search problem in searchAgents.py. You will need to choose a state representation that encodes all the information necessary to detect whether all four corners have been reached. Now, your search agent should solve:**
 
     python pacman.py -l tinyCorners -p SearchAgent -a fn=bfs,prob=CornersProblem
     python pacman.py -l mediumCorners -p SearchAgent -a fn=bfs,prob=CornersProblem
@@ -147,7 +148,7 @@ Note: Make sure to complete Question 4 before working on Question 6, because Que
 
 Implement a non-trivial, consistent heuristic for the CornersProblem in cornersHeuristic.
 
-python pacman.py -l mediumCorners -p AStarCornersAgent -z 0.5
+    python pacman.py -l mediumCorners -p AStarCornersAgent -z 0.5
 Note: AStarCornersAgent is a shortcut for
 
     -p SearchAgent -a fn=aStarSearch,prob=CornersProblem,heuristic=cornersHeuristic
