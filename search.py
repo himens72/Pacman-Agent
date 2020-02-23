@@ -18,6 +18,27 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+from util import Stack
+from util import Queue
+from util import PriorityQueue
+
+"""
+A Node in a tree
+"""
+class Node:
+
+    def __init__(self, state, parent, action):
+        self.state = state
+        self.parent = parent
+        self.action = action
+    
+    def getPath(self):
+        path, node = list(), self
+        while(node.action != None):
+            path.append(node.action)
+            node = node.parent
+        path.reverse()
+        return path
 
 class SearchProblem:
     """
@@ -72,6 +93,7 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+# To do (least cost solution)
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
@@ -87,7 +109,33 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # create a stack for DFS
+    stack = Stack()
+    # create a set to keep track of explored/visited nodes
+    visited = set()
+    stack.push(Node(problem.getStartState(), None, None))
+    
+    while(not stack.isEmpty()):
+        # pop a node from stack
+        current = stack.pop()
+        # if current node is Goal state then return the path
+        if(problem.isGoalState(current.state)):
+            path = current.getPath()
+            return path
+
+        """ 
+        visit current node if is not explored before and find its
+        children (push those into the stack) 
+        """
+        if(current.state not in visited):
+            visited.add(current.state)
+            allSuccessor = problem.getSuccessors(current.state)
+            for successor in allSuccessor:
+                if(successor not in visited):
+                    child = Node(successor[0], current, successor[1])
+                    stack.push(child)
+
+    return list()
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
