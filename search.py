@@ -27,14 +27,15 @@ A Node in a tree
 """
 class Node:
 
-    def __init__(self, state, parent, action):
+    def __init__(self, state, parent, action, priority=0):
         self.state = state
         self.parent = parent
         self.action = action
+        self.priority = priority
     
     def getPath(self):
         path, node = list(), self
-        while(node.action != None):
+        while(node.action != 'none'):
             path.append(node.action)
             node = node.parent
         path.reverse()
@@ -113,7 +114,7 @@ def depthFirstSearch(problem):
     stack = Stack()
     # create a set to keep track of explored/visited nodes
     visited = set()
-    stack.push(Node(problem.getStartState(), None, None))
+    stack.push(Node(problem.getStartState(), 'none', 'none'))
     
     while(not stack.isEmpty()):
         # pop a node from stack
@@ -142,7 +143,7 @@ def breadthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     que = Queue()
     visited = set()
-    que.push(Node(problem.getStartState(), None, None))
+    que.push(Node(problem.getStartState(), 'none', 'none'))
 
     while(not que.isEmpty()):
         # Dequeue first element from queue
@@ -169,7 +170,31 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # Uniform Cost Search requires PriorityQueue 
+    pque = PriorityQueue()
+    visited = set()
+    pque.update(Node(problem.getStartState(), 'none', 'none'), 0)
+
+    while(not pque.isEmpty()):
+        # Dequeue first element from queue
+        current = pque.pop()
+
+        # if current node is Goal state then return the path
+        if(problem.isGoalState(current.state)):
+            path = current.getPath()
+            return path
+        
+        # find all adjacent nodes of dequeued node current.
+        # if adjacent nodes are not visited, then 
+        # mark it as visited and add into queue.
+        if(current.state not in visited):
+            visited.add(current.state)
+            allSuccessor = problem.getSuccessors(current.state)
+            for successor in allSuccessor:
+                child = Node(successor[0], current, successor[1], successor[2]+current.priority)
+                pque.update(child, child.priority)
+        
+    return list()
 
 def nullHeuristic(state, problem=None):
     """
