@@ -27,16 +27,16 @@ A Node in a tree
 """
 class Node:
 
-    def __init__(self, state, parent, action, priority=0):
+    def __init__(self, state, parent, direction, priority=0):
         self.state = state
         self.parent = parent
-        self.action = action
+        self.direction = direction
         self.priority = priority
-    
+
     def getPath(self):
         path, node = list(), self
-        while(node.action != 'none'):
-            path.append(node.action)
+        while(node.direction != 'none'):
+            path.append(node.direction)
             node = node.parent
         path.reverse()
         return path
@@ -204,10 +204,34 @@ def nullHeuristic(state, problem=None):
     return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    queue = util.PriorityQueue()
 
+    # get current state of Pacman
+    current_node = Node(problem.getStartState(), 'none', 'none', 0)
+    queue.update(current_node, 0)
+
+    path = []
+    visited = []
+    while not queue.isEmpty():
+        current_node = queue.pop()
+        # returns path if Pacman has reached final destination state
+        if problem.isGoalState(current_node.state):
+            path = current_node.getPath()
+            return path
+
+        # Search the node that has the lowest combined cost and heuristic first.
+        if current_node.state not in visited:
+            visited.append(current_node.state)
+            for successor in problem.getSuccessors(current_node.state):
+                # successor[0] = state of new node
+                # succesor[1] = direction of new node
+                # successor[2] = cost of new node
+                new_priority = current_node.priority + successor[2]
+                new_node = Node(successor[0], current_node, successor[1], new_priority)
+                queue.update(new_node, new_priority + heuristic(successor[0], problem))
+    return path
+
+    util.raiseNotDefined()
 
 # Abbreviations
 bfs = breadthFirstSearch
