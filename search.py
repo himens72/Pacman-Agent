@@ -35,7 +35,7 @@ class Node:
 
     def getPath(self):
         path, node = list(), self
-        while(node.direction != 'none'):
+        while node.direction != 'none':
             path.append(node.direction)
             node = node.parent
         path.reverse()
@@ -116,11 +116,11 @@ def depthFirstSearch(problem):
     visited = set()
     stack.push(Node(problem.getStartState(), 'none', 'none'))
     
-    while(not stack.isEmpty()):
+    while not stack.isEmpty():
         # pop a node from stack
         current = stack.pop()
         # if current node is Goal state then return the path
-        if(problem.isGoalState(current.state)):
+        if problem.isGoalState(current.state):
             path = current.getPath()
             return path
 
@@ -128,15 +128,16 @@ def depthFirstSearch(problem):
         visit current node if is not explored before and find its
         children (push those into the stack) 
         """
-        if(current.state not in visited):
+        if current.state not in visited:
             visited.add(current.state)
-            allSuccessor = problem.getSuccessors(current.state)
-            for successor in allSuccessor:
-                if(successor not in visited):
+            all_successor = problem.getSuccessors(current.state)
+            for successor in all_successor:
+                if successor not in visited:
                     child = Node(successor[0], current, successor[1])
                     stack.push(child)
 
     return list()
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
@@ -145,23 +146,23 @@ def breadthFirstSearch(problem):
     visited = set()
     que.push(Node(problem.getStartState(), 'none', 'none'))
 
-    while(not que.isEmpty()):
+    while not que.isEmpty():
         # Dequeue first element from queue
         current = que.pop()
 
         # if current node is Goal state then return the path
-        if(problem.isGoalState(current.state)):
+        if problem.isGoalState(current.state):
             path = current.getPath()
             return path
 
         # find all adjacent nodes of dequeued node current.
         # if adjacent nodes are not visited, then 
         # mark it as visited and add into queue.
-        if(current.state not in visited):
+        if current.state not in visited:
             visited.add(current.state)
-            allSuccessor = problem.getSuccessors(current.state)
-            for successor in allSuccessor:
-                if(successor not in visited):
+            all_successor = problem.getSuccessors(current.state)
+            for successor in all_successor:
+                if successor not in visited:
                     child = Node(successor[0], current, successor[1])
                     que.push(child)
             
@@ -175,22 +176,22 @@ def uniformCostSearch(problem):
     visited = set()
     pque.update(Node(problem.getStartState(), 'none', 'none'), 0)
 
-    while(not pque.isEmpty()):
+    while not pque.isEmpty():
         # Dequeue first element from queue
         current = pque.pop()
 
         # if current node is Goal state then return the path
-        if(problem.isGoalState(current.state)):
+        if problem.isGoalState(current.state):
             path = current.getPath()
             return path
         
         # find all adjacent nodes of dequeued node current.
         # if adjacent nodes are not visited, then 
         # mark it as visited and add into queue.
-        if(current.state not in visited):
+        if current.state not in visited:
             visited.add(current.state)
-            allSuccessor = problem.getSuccessors(current.state)
-            for successor in allSuccessor:
+            all_successor = problem.getSuccessors(current.state)
+            for successor in all_successor:
                 child = Node(successor[0], current, successor[1], successor[2]+current.priority)
                 pque.update(child, child.priority)
         
