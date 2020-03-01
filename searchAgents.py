@@ -295,16 +295,25 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        return (self.startingPosition, (self.corners[0], self.corners[1], self.corners[2], self.corners[3]))
+        # util.raiseNotDefined()
+
+        # Initialise a list of corner coordinates in Pacman State Space
+        cornerList = (self.corners[0], self.corners[1], self.corners[2], self.corners[3])
+        return (self.startingPosition, cornerList)
+        # util.raiseNotDefined()
 
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        return len(state[1]) == 0
-        ##      all the corners will have been removed
+        # util.raiseNotDefined()
+        if  len(state[1]) == 0:
+            return True
+        else:
+            return False
 
+        # return len(state[1]) == 0
 
     def getSuccessors(self, state):
         """
@@ -315,7 +324,6 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
-
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
@@ -331,17 +339,21 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
+
+            # Initialise list to store a list of corners
+            corner_list = list()
             if not hitsWall:
-                newPosition = (nextx, nexty)
-                restCorners = state[1][:]
-                if newPosition in restCorners:
-                    temp = list(restCorners)
-                    temp.remove(newPosition)
-                    restCorners = tuple(temp)
-                newState = (newPosition, restCorners)
-                actionCost = 1
-                successor =(newState, action, actionCost)
-                successors.append(successor)
+                new_position = (nextx, nexty)
+                for val in state[1]:
+                    # Consider the value of state in corners data only if it is not same as new coordinates nextx and nexty
+                    if val != new_position:
+                        corner_list.append(val)
+                new_corners = tuple(corner_list)
+                # print("Ok")
+                # print(new_corners)
+                #
+                next_successor = ((new_position , new_corners), action, 1)
+                successors.append(next_successor)
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
