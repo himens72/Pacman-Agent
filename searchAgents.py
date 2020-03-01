@@ -394,6 +394,7 @@ def cornersHeuristic(state, problem):
 
     while len(restCorners) > 0:
         nextCorner = nextPoint(currentPosition, restCorners)
+
         sum += util.manhattanDistance(currentPosition, nextCorner)
         currentPosition = nextCorner
         temp = list(restCorners)
@@ -548,6 +549,22 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
+        min_distance = 1000000
+        point = []
+        for i in range(food.height):
+            for j in range(food.width):
+                if food[j][i]:
+                    distance = mazeDistance((j, i), startPosition, gameState)
+                    if distance < min_distance:
+                        point.clear()
+                        min_distance = distance
+                        point = [j, i]
+        # print(point)
+        # print(tuple(point))
+        prob = PositionSearchProblem(gameState, start=startPosition, goal=tuple(point), warn=False, visualize=False)
+        print("Hello")
+        print(prob)
+        return search.bfs(prob)
         util.raiseNotDefined()
 
 class AnyFoodSearchProblem(PositionSearchProblem):
