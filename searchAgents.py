@@ -551,6 +551,8 @@ class ClosestDotSearchAgent(SearchAgent):
         "*** YOUR CODE HERE ***"
         min_distance = 1000000
         point = []
+        print("GameState View")
+        print(gameState)
         for i in range(food.height):
             for j in range(food.width):
                 if food[j][i]:
@@ -562,8 +564,8 @@ class ClosestDotSearchAgent(SearchAgent):
         # print(point)
         # print(tuple(point))
         prob = PositionSearchProblem(gameState, start=startPosition, goal=tuple(point), warn=False, visualize=False)
-        print("Hello")
-        print(prob)
+        # print("Hello")
+        # print(prob)
         return search.bfs(prob)
         util.raiseNotDefined()
 
@@ -598,7 +600,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         The state is Pacman's position. Fill this in with a goal test that will
         complete the problem definition.
         """
-        x,y = state
+        x, y = state
 
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
