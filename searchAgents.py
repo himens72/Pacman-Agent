@@ -313,8 +313,6 @@ class CornersProblem(search.SearchProblem):
         else:
             return False
 
-        # return len(state[1]) == 0
-
     def getSuccessors(self, state):
         """
         Returns successor states, the actions they require, and a cost of 1.
@@ -371,7 +369,6 @@ class CornersProblem(search.SearchProblem):
             if self.walls[x][y]: return 999999
         return len(actions)
 
-
 def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
@@ -386,35 +383,35 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
+    total_distance = 0
+    current_position = state[0]
+    corners = state[1]
+    while len(corners) > 0:
 
+        if len(corners) == 0:
+            return None
 
-    sum = 0
-    currentPosition = state[0]
-    restCorners = state[1][:]
+        points = list()
+        min_cost = 1000000
 
-    while len(restCorners) > 0:
-        nextCorner = nextPoint(currentPosition, restCorners)
+        for corner in corners:
+            cost = util.manhattanDistance(current_position, corner)
+            if min_cost > cost:
+                points.clear()
+                points.append(corner)
+                min_cost = cost
 
-        sum += util.manhattanDistance(currentPosition, nextCorner)
-        currentPosition = nextCorner
-        temp = list(restCorners)
-        temp.remove(nextCorner)
-        restCorners = tuple(temp)
-    return sum
+        new_corner = points[0]
+        total_distance += util.manhattanDistance(current_position, new_corner)
+        current_position = new_corner
 
-def nextPoint(position, corners):
-    if len(corners) == 0:
-        return None
+        corners_list = list()
+        for val in corners:
+            if val != new_corner:
+                corners_list.append(val)
 
-    nextCorner = corners[0]
-    minCost = util.manhattanDistance(position, nextCorner)
-    for corner in corners[1:]:
-        cost = util.manhattanDistance(position, corner)
-        if minCost > cost:
-            minCost = cost
-            nextCorner = corner
-
-    return nextCorner
+        corners = tuple(corners_list)
+    return total_distance
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
