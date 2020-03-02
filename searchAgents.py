@@ -395,6 +395,7 @@ def cornersHeuristic(state, problem):
         min_cost = 1000000
 
         for corner in corners:
+            # Find corner with minimum cost from current position using Manhattan Distance
             cost = util.manhattanDistance(current_position, corner)
             if min_cost > cost:
                 points.clear()
@@ -402,6 +403,7 @@ def cornersHeuristic(state, problem):
                 min_cost = cost
 
         new_corner = points[0]
+        # update the total distance with the corner having minimum cost
         total_distance += util.manhattanDistance(current_position, new_corner)
         current_position = new_corner
 
