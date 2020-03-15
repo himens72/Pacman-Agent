@@ -208,6 +208,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     queue = util.PriorityQueue()
 
     # get current state of Pacman
+    # State of current problem, parent, direction and cost of node -> parameters of Node constructor
     current_node = Node(problem.getStartState(), 'none', 'none', 0)
     queue.update(current_node, 0)
 
@@ -227,9 +228,9 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 # successor[0] = state of new node
                 # succesor[1] = direction of new node
                 # successor[2] = cost of new node
-                new_priority = current_node.priority + successor[2]
-                new_node = Node(successor[0], current_node, successor[1], new_priority)
-                queue.update(new_node, new_priority + heuristic(successor[0], problem))
+                total_cost = current_node.priority + successor[2]
+                next_node = Node(successor[0], current_node, successor[1], total_cost)
+                queue.update(next_node, total_cost + heuristic(successor[0], problem))
     return path
 
     util.raiseNotDefined()
