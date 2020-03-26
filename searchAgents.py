@@ -295,19 +295,16 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        # util.raiseNotDefined()
 
         # Initialise a list of corner coordinates in Pacman State Space
         cornerList = (self.corners[0], self.corners[1], self.corners[2], self.corners[3])
         return (self.startingPosition, cornerList)
-        # util.raiseNotDefined()
 
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        # util.raiseNotDefined()
         if  len(state[1]) == 0:
             return True
         else:

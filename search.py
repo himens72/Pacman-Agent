@@ -1,3 +1,12 @@
+"""
+REFERENCES:
+[1] http://ai.berkeley.edu/project_overview.html
+[2] A* Search Algorithm: https://www.geeksforgeeks.org/a-search-algorithm/
+[3] AI Search Algorithm: https://www.tutorialspoint.com/artificial_intelligence/artificial_intelligence_popular_search_algorithms.htm
+[4] Heuristic Search Algorithm: https://data-flair.training/blogs/heuristic-search-ai/
+[5] Suboptimal search: https://intellipaat.com/community/26159/the-suboptimal-solution-is-given-by-a-search
+[6] Teaching Introductory AI with Pac-Man: https://www.aaai.org/ocs/index.php/EAAI/EAAI10/paper/viewFile/1954/2331
+"""
 # search.py
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
@@ -205,7 +214,7 @@ def nullHeuristic(state, problem=None):
     return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    queue = util.PriorityQueue()
+    queue = PriorityQueue()
 
     # get current state of Pacman
     # State of current problem, parent, direction and cost of node -> parameters of Node constructor
@@ -232,8 +241,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 next_node = Node(successor[0], current_node, successor[1], total_cost)
                 queue.update(next_node, total_cost + heuristic(successor[0], problem))
     return path
-
-    util.raiseNotDefined()
 
 # Abbreviations
 bfs = breadthFirstSearch
