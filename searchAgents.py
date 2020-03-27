@@ -547,8 +547,8 @@ class ClosestDotSearchAgent(SearchAgent):
         "*** YOUR CODE HERE ***"
         min_distance = 1000000
         point = []
-        print("GameState View")
-        print(gameState)
+        # print("GameState View")
+        # print(gameState)
         for i in range(food.height):
             for j in range(food.width):
                 if food[j][i]:
