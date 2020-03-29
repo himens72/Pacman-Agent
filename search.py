@@ -6,6 +6,11 @@ REFERENCES:
 [4] Heuristic Search Algorithm: https://data-flair.training/blogs/heuristic-search-ai/
 [5] Suboptimal search: https://intellipaat.com/community/26159/the-suboptimal-solution-is-given-by-a-search
 [6] Teaching Introductory AI with Pac-Man: https://www.aaai.org/ocs/index.php/EAAI/EAAI10/paper/viewFile/1954/2331
+[7] Maze Distance Heuristic use: https://stackoverflow.com/questions/9994913/pacman-what-kinds-of-heuristics-are-mainly-used
+[8] Serch algorith in AI: https://www.geeksforgeeks.org/search-algorithms-in-ai/
+[9] Solving 8-Puzzle using A* Algorithm: https://blog.goodaudience.com/solving-8-puzzle-using-a-algorithm-7b509c331288
+[10] DFS algorithm: https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+[11] Uniform Cost Search: https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/
 """
 # search.py
 # ---------
